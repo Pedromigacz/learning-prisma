@@ -15,7 +15,7 @@ app.post("/", async (req: Request, res: Response) => {
   const newForm = await prisma.field.create({
     data: {
       label: "New Field",
-      field_id: "cky3ytju300236utwd1g6da9h",
+      form_id: "cky3ytju300236utwd1g6da9h",
       sort_index: 4,
     },
   });

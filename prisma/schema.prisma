@@ -15,8 +15,8 @@ model Field {
   id String @id @default(cuid())
   label String @unique
   sort_index Int
-  form Form @relation(fields: [field_id], references: [id])
-  field_id String
+  form Form @relation(fields: [form_id], references: [id])
+  form_id String
 }
 
 // forms

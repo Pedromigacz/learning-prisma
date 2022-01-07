@@ -3,7 +3,7 @@ CREATE TABLE "Field" (
     "id" TEXT NOT NULL,
     "label" TEXT NOT NULL,
     "sort_index" INTEGER NOT NULL,
-    "field_id" TEXT NOT NULL,
+    "form_id" TEXT NOT NULL,
 
     CONSTRAINT "Field_pkey" PRIMARY KEY ("id")
 );
@@ -23,4 +23,4 @@ CREATE UNIQUE INDEX "Field_label_key" ON "Field"("label");
 CREATE UNIQUE INDEX "Form_name_key" ON "Form"("name");
 
 -- AddForeignKey
-ALTER TABLE "Field" ADD CONSTRAINT "Field_field_id_fkey" FOREIGN KEY ("field_id") REFERENCES "Form"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Field" ADD CONSTRAINT "Field_form_id_fkey" FOREIGN KEY ("form_id") REFERENCES "Form"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
