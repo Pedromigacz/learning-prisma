@@ -1,9 +1,26 @@
 import express, { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
+const prisma = new PrismaClient();
 
-app.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Hello there" });
+// get all forms
+app.get("/", async (req: Request, res: Response) => {
+  const forms = await prisma.form.findMany();
+  res.json(forms);
+});
+
+// create a field
+app.post("/", async (req: Request, res: Response) => {
+  const newForm = await prisma.field.create({
+    data: {
+      label: "New Field",
+      field_id: "cky3ytju300236utwd1g6da9h",
+      sort_index: 4,
+    },
+  });
+
+  res.json(newForm);
 });
 
 app.listen(1337, () => {
