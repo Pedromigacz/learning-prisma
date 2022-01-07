@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// fields
+model Field {
+  id String @id @default(cuid())
+  label String @unique
+  sort_index Int
+  form Form @relation(fields: [field_id], references: [id])
+  field_id String
+}
+
+// forms
+model Form {
+  // id BigInt @id @default(autoincrement())
+  id String @id @default(cuid())
+  name String @unique
+  fields Field[]
+}
