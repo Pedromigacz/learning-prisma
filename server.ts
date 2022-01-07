@@ -1,28 +1,35 @@
+import { ApolloServer } from "apollo-server-express";
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from "apollo-server-core";
 import express, { Request, Response } from "express";
+import http from "http";
 import { PrismaClient } from "@prisma/client";
+import { ApolloServer } from "apollo-server-express";
+import { schema } from "./src/schema";
 
-const app = express();
-const prisma = new PrismaClient();
+async function startApolloServer() {
+  const app = express();
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    schema: schema,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
+  });
+  await server.start();
 
-// get all forms
-app.get("/", async (req: Request, res: Response) => {
-  const forms = await prisma.form.findMany();
-  res.json(forms);
-});
+  server.applyMiddleware({ app });
 
-// create a field
-app.post("/", async (req: Request, res: Response) => {
-  const newForm = await prisma.field.create({
-    data: {
-      label: "New Field",
-      form_id: "cky3ytju300236utwd1g6da9h",
-      sort_index: 4,
-    },
+  await new Promise<void>((resolve) => {
+    httpServer.listen({ port: 1337 });
+    resolve();
   });
 
-  res.json(newForm);
-});
+  console.log(`Server is running on port localhost:1337/${server.graphqlPath}`);
+}
 
-app.listen(1337, () => {
-  console.log("server listening on port 1337");
-});
+// Start server
+startApolloServer();

@@ -1,5 +1,4 @@
 import { list, nonNull, nullable, queryField } from "nexus";
-import { nullable, queryField } from "nexus";
 import { Form } from "../";
 
 export const forms = queryField("forms", {
