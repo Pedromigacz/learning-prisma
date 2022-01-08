@@ -1,4 +1,4 @@
-import { inputObjectType } from "nexus";
+import { inputObjectType, nullable } from "nexus";
 
 // Form
 export const FormWhereUniqueInput = inputObjectType({
@@ -15,6 +15,14 @@ export const CreateFormInput = inputObjectType({
   },
 });
 
+export const UpdateFormInput = inputObjectType({
+  name: "UpdateFormInput",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nullable.string("name");
+  },
+});
+
 // FormField
 export const FormFieldWhereUniqueInput = inputObjectType({
   name: "FormFieldWhereUniqueInput",
@@ -28,5 +36,14 @@ export const CreateFormFieldInput = inputObjectType({
   definition(t) {
     t.nonNull.string("label");
     t.nonNull.int("sort_index");
+  },
+});
+
+export const UpdateFormFieldInput = inputObjectType({
+  name: "UpdateFormFieldInput",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nullable.string("label");
+    t.nullable.int("sort_index");
   },
 });

@@ -37,9 +37,21 @@ type Mutation {
   createFormField(input: CreateFormFieldInput!, where: FormWhereUniqueInput!): Field
   removeForm(where: FormWhereUniqueInput!): Form
   removeFormField(where: FormFieldWhereUniqueInput!): Field
+  updateForm(fields: [UpdateFormFieldInput], input: UpdateFormInput!): Form
 }
 
 type Query {
   form(where: FormWhereUniqueInput!): Form
   forms: [Form!]!
+}
+
+input UpdateFormFieldInput {
+  id: ID!
+  label: String
+  sort_index: Int
+}
+
+input UpdateFormInput {
+  id: ID!
+  name: String
 }

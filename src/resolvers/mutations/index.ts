@@ -1,4 +1,4 @@
-import { mutationField, nullable, nonNull } from "nexus";
+import { mutationField, nullable, nonNull, list } from "nexus";
 import {
   Form,
   Field,
@@ -6,6 +6,8 @@ import {
   FormFieldWhereUniqueInput,
   CreateFormInput,
   CreateFormFieldInput,
+  UpdateFormInput,
+  UpdateFormFieldInput,
 } from "../";
 
 export const createForm = mutationField("createForm", {
@@ -30,6 +32,67 @@ export const createForm = mutationField("createForm", {
   },
 });
 
+export const updateForm = mutationField("updateForm", {
+  type: nullable(Form),
+  args: {
+    input: nonNull(UpdateFormInput),
+    fields: nullable(list(nullable(UpdateFormFieldInput))),
+  },
+  resolve: async (root, args, ctx) => {
+    interface UpdatedFieldData {
+      label?: string;
+      sort_index?: number;
+    }
+
+    interface field {
+      id?: string;
+      label?: string;
+      sort_index?: number;
+    }
+
+    let response;
+    let responseForm;
+    let responseFields;
+    if (args.input.name) {
+      responseForm = await ctx.prisma.form.update({
+        where: args.input.id,
+        data: {
+          name: args.input.name,
+        },
+      });
+    } else {
+      responseForm = await ctx.prisma.form.findUnique({
+        where: {
+          id: args.input.id,
+        },
+      });
+    }
+
+    if (args.fields.length >= 1) {
+      responseFields = await Promise.all(
+        args.fields.map(async (field: field) => {
+          const data: UpdatedFieldData = {};
+          if (field.label) data.label = field.label;
+          if (field.sort_index) data.sort_index = field.sort_index;
+
+          const updateField = await ctx.prisma.field.update({
+            where: {
+              id: field.id,
+            },
+            data,
+          });
+          return updateField;
+        })
+      );
+    }
+
+    return {
+      ...responseForm,
+      fields: {
+        ...responseForm.fields,
+        ...responseFields,
+      },
+    };
   },
 });
 
