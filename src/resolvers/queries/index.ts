@@ -1,10 +1,11 @@
 import { list, nonNull, nullable, queryField } from "nexus";
-import { Form } from "../";
+import { Form, FormWhereUniqueInput } from "../";
+//import { FormWhereUniqueInput } from "../inputs/index";
 
 export const forms = queryField("forms", {
-  type: nullable(list(nonNull(Form))),
+  type: nonNull(list(nonNull(Form))),
   resolve: async (root, args, ctx) => {
-    return [];
+    return ctx.prisma.form.findMany({});
   },
 });
 
