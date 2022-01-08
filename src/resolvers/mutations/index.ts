@@ -114,9 +114,7 @@ export const removeForm = mutationField("removeForm", {
   },
   resolve: async (root, args, ctx) => {
     return ctx.prisma.form.delete({
-      data: {
-        where: args.where,
-      },
+      where: args.where,
     });
   },
 });
