@@ -4,7 +4,6 @@ import {
 } from "apollo-server-core";
 import express, { Request, Response } from "express";
 import http from "http";
-import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
 import { schema } from "./src/schema";
 import { createContext } from "./src/context";
