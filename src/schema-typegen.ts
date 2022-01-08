@@ -53,11 +53,13 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Field: { // field return type
+    form: NexusGenRootTypes['Form']; // Form!
     id: string; // ID!
     label: string; // String!
     sort_index: number; // Int!
   }
   Form: { // field return type
+    fields: NexusGenRootTypes['Field'][]; // [Field!]!
     id: string; // ID!
     name: string; // String!
   }
@@ -75,11 +77,13 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Field: { // field return type name
+    form: 'Form'
     id: 'ID'
     label: 'String'
     sort_index: 'Int'
   }
   Form: { // field return type name
+    fields: 'Field'
     id: 'ID'
     name: 'String'
   }

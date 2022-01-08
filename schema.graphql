@@ -3,12 +3,14 @@
 
 
 type Field {
+  form: Form!
   id: ID!
   label: String!
   sort_index: Int!
 }
 
 type Form {
+  fields: [Field!]!
   id: ID!
   name: String!
 }
