@@ -14,6 +14,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  FormWhereUniqueInput: { // input type
+    id: string; // ID!
+  }
 }
 
 export interface NexusGenEnums {
@@ -71,7 +74,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     form: NexusGenRootTypes['Form'] | null; // Form
-    forms: NexusGenRootTypes['Form'][] | null; // [Form!]
+    forms: NexusGenRootTypes['Form'][]; // [Form!]!
   }
 }
 
@@ -100,6 +103,11 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    form: { // args
+      where: NexusGenInputs['FormWhereUniqueInput']; // FormWhereUniqueInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -110,7 +118,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

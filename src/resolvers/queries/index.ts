@@ -11,7 +11,14 @@ export const forms = queryField("forms", {
 
 export const form = queryField("form", {
   type: nullable(Form),
+  args: {
+    where: nonNull(FormWhereUniqueInput),
+  },
   resolve: async (root, args, ctx) => {
-    return null;
+    return ctx.prisma.form.findUnique({
+      where: {
+        id: args.where.id,
+      },
+    });
   },
 });

@@ -15,6 +15,10 @@ type Form {
   name: String!
 }
 
+input FormWhereUniqueInput {
+  id: ID!
+}
+
 type Mutation {
   createForm: Form
   createFormField: Field
@@ -23,6 +27,6 @@ type Mutation {
 }
 
 type Query {
-  form: Form
-  forms: [Form!]
+  form(where: FormWhereUniqueInput!): Form
+  forms: [Form!]!
 }
