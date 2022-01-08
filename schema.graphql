@@ -2,6 +2,15 @@
 ### Do not make changes to this file directly
 
 
+input CreateFormFieldInput {
+  label: String!
+  sort_index: Int!
+}
+
+input CreateFormInput {
+  name: String!
+}
+
 type Field {
   form: Form!
   id: ID!
@@ -15,15 +24,19 @@ type Form {
   name: String!
 }
 
+input FormFieldWhereUniqueInput {
+  id: ID!
+}
+
 input FormWhereUniqueInput {
   id: ID!
 }
 
 type Mutation {
-  createForm: Form
-  createFormField: Field
-  removeFormField: Field
-  updateFormField: Field
+  createForm(input: CreateFormInput!): Form
+  createFormField(input: CreateFormFieldInput!, where: FormWhereUniqueInput!): Field
+  removeForm(where: FormWhereUniqueInput!): Form
+  removeFormField(where: FormFieldWhereUniqueInput!): Field
 }
 
 type Query {

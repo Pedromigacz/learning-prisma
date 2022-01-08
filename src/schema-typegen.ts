@@ -14,6 +14,16 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CreateFormFieldInput: { // input type
+    label: string; // String!
+    sort_index: number; // Int!
+  }
+  CreateFormInput: { // input type
+    name: string; // String!
+  }
+  FormFieldWhereUniqueInput: { // input type
+    id: string; // ID!
+  }
   FormWhereUniqueInput: { // input type
     id: string; // ID!
   }
@@ -69,8 +79,8 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createForm: NexusGenRootTypes['Form'] | null; // Form
     createFormField: NexusGenRootTypes['Field'] | null; // Field
+    removeForm: NexusGenRootTypes['Form'] | null; // Form
     removeFormField: NexusGenRootTypes['Field'] | null; // Field
-    updateFormField: NexusGenRootTypes['Field'] | null; // Field
   }
   Query: { // field return type
     form: NexusGenRootTypes['Form'] | null; // Form
@@ -93,8 +103,8 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createForm: 'Form'
     createFormField: 'Field'
+    removeForm: 'Form'
     removeFormField: 'Field'
-    updateFormField: 'Field'
   }
   Query: { // field return type name
     form: 'Form'
@@ -103,6 +113,21 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createForm: { // args
+      input: NexusGenInputs['CreateFormInput']; // CreateFormInput!
+    }
+    createFormField: { // args
+      input: NexusGenInputs['CreateFormFieldInput']; // CreateFormFieldInput!
+      where: NexusGenInputs['FormWhereUniqueInput']; // FormWhereUniqueInput!
+    }
+    removeForm: { // args
+      where: NexusGenInputs['FormWhereUniqueInput']; // FormWhereUniqueInput!
+    }
+    removeFormField: { // args
+      where: NexusGenInputs['FormFieldWhereUniqueInput']; // FormFieldWhereUniqueInput!
+    }
+  }
   Query: {
     form: { // args
       where: NexusGenInputs['FormWhereUniqueInput']; // FormWhereUniqueInput!
