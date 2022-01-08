@@ -12,13 +12,24 @@ export const createForm = mutationField("createForm", {
   type: nullable(Form),
   args: {
     input: nonNull(CreateFormInput),
+    fields: nullable(list(nullable(CreateFormFieldInput))),
   },
   resolve: async (root, args, ctx) => {
-    return ctx.prisma.form.create({
+    const form = await ctx.prisma.form.create({
       data: {
         ...args.input,
       },
     });
+    const fields = await ctx.prisma.field.createMany({
+      data: args.fields.map((field: typeof CreateFormFieldInput) => ({
+        form_id: form.id,
+        ...field,
+      })),
+    });
+    return form;
+  },
+});
+
   },
 });
 

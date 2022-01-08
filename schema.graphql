@@ -33,7 +33,7 @@ input FormWhereUniqueInput {
 }
 
 type Mutation {
-  createForm(input: CreateFormInput!): Form
+  createForm(fields: [CreateFormFieldInput], input: CreateFormInput!): Form
   createFormField(input: CreateFormFieldInput!, where: FormWhereUniqueInput!): Field
   removeForm(where: FormWhereUniqueInput!): Form
   removeFormField(where: FormFieldWhereUniqueInput!): Field

@@ -13,7 +13,7 @@ generator client {
 // fields
 model Field {
   id String @id @default(cuid())
-  label String @unique
+  label String
   sort_index Int
   form Form @relation(fields: [form_id], references: [id], onDelete: Cascade)
   form_id String
