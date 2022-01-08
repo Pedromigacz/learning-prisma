@@ -150,10 +150,3 @@ export const removeFormField = mutationField("removeFormField", {
     });
   },
 });
-
-/*export const updateFormField = mutationField("updateFormField", {
-  type: nullable(Field),
-  resolve: async (root, args, ctx) => {
-    return null;
-  },
-});*/
