@@ -1,4 +1,3 @@
-import { ApolloServer } from "apollo-server-express";
 import {
   ApolloServerPluginDrainHttpServer,
   ApolloServerPluginLandingPageGraphQLPlayground,
@@ -8,12 +7,14 @@ import http from "http";
 import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-express";
 import { schema } from "./src/schema";
+import { createContext } from "./src/context";
 
 async function startApolloServer() {
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
     schema: schema,
+    context: createContext,
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       ApolloServerPluginLandingPageGraphQLPlayground(),
@@ -28,7 +29,7 @@ async function startApolloServer() {
     resolve();
   });
 
-  console.log(`Server is running on port localhost:1337/${server.graphqlPath}`);
+  console.log(`Server is running on port localhost:1337${server.graphqlPath}`);
 }
 
 // Start server
