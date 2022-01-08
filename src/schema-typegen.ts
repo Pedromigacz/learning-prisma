@@ -28,7 +28,7 @@ export interface NexusGenInputs {
     id: string; // ID!
   }
   UpdateFormFieldInput: { // input type
-    id: string; // ID!
+    id?: string | null; // ID
     label?: string | null; // String
     sort_index?: number | null; // Int
   }

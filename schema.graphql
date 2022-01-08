@@ -46,7 +46,7 @@ type Query {
 }
 
 input UpdateFormFieldInput {
-  id: ID!
+  id: ID
   label: String
   sort_index: Int
 }

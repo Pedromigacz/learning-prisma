@@ -74,14 +74,25 @@ export const updateForm = mutationField("updateForm", {
           const data: UpdatedFieldData = {};
           if (field.label) data.label = field.label;
           if (field.sort_index) data.sort_index = field.sort_index;
+          console.log(data);
 
-          const updateField = await ctx.prisma.field.update({
-            where: {
-              id: field.id,
-            },
-            data,
-          });
-          return updateField;
+          let interationField;
+          if (field.id) {
+            interationField = await ctx.prisma.field.update({
+              where: {
+                id: field.id,
+              },
+              data,
+            });
+          } else {
+            interationField = await ctx.prisma.field.create({
+              data: {
+                ...data,
+                form_id: args.input.id,
+              },
+            });
+          }
+          return interationField;
         })
       );
     }

@@ -42,7 +42,7 @@ export const CreateFormFieldInput = inputObjectType({
 export const UpdateFormFieldInput = inputObjectType({
   name: "UpdateFormFieldInput",
   definition(t) {
-    t.nonNull.id("id");
+    t.nullable.id("id");
     t.nullable.string("label");
     t.nullable.int("sort_index");
   },
