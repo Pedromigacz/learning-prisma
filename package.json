@@ -8,7 +8,8 @@
     "postinstall": "npm -s run generate",
     "generate": "npm -s run generate:nexus && npm -s run generate:prisma",
     "generate:nexus": "ts-node --transpile-only src/schema",
-    "generate:prisma": "prisma generate"
+    "generate:prisma": "prisma generate",
+    "start": "NODE_ENV=production ts-node server.ts"
   },
   "author": "",
   "license": "ISC",
