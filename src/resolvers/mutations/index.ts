@@ -52,19 +52,21 @@ export const updateForm = mutationField("updateForm", {
 
     let response;
     let responseForm;
-    let responseFields;
+    let responseFields: field[] = [];
     if (args.input.name) {
       responseForm = await ctx.prisma.form.update({
-        where: args.input.id,
+        where: { id: args.input.id },
         data: {
           name: args.input.name,
         },
+        include: { fields: true },
       });
     } else {
       responseForm = await ctx.prisma.form.findUnique({
         where: {
           id: args.input.id,
         },
+        include: { fields: true },
       });
     }
 
@@ -73,34 +75,48 @@ export const updateForm = mutationField("updateForm", {
         args.fields.map(async (field: field) => {
           const data: UpdatedFieldData = {};
           if (field.label) data.label = field.label;
-          if (field.sort_index) data.sort_index = field.sort_index;
-          console.log(data);
+          if (field.sort_index) {
+            data.sort_index = field.sort_index;
+          } else {
+            data.sort_index = 1;
+          }
 
-          let interationField;
+          let interactionField;
           if (field.id) {
-            interationField = await ctx.prisma.field.update({
+            interactionField = await ctx.prisma.field.update({
               where: {
                 id: field.id,
               },
               data,
             });
           } else {
-            interationField = await ctx.prisma.field.create({
+            interactionField = await ctx.prisma.field.create({
               data: {
                 ...data,
                 form_id: args.input.id,
               },
             });
           }
-          return interationField;
+          return interactionField;
         })
       );
     }
 
+    await Promise.all(
+      responseForm.fields.map(async (field: field) => {
+        if (!responseFields.some((oldField) => oldField.id === field.id)) {
+          await ctx.prisma.field.delete({
+            where: { id: field.id },
+          });
+        }
+
+        return field;
+      })
+    );
+
     return {
       ...responseForm,
       fields: {
-        ...responseForm.fields,
         ...responseFields,
       },
     };
