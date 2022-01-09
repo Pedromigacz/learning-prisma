@@ -7,6 +7,7 @@ import http from "http";
 import { ApolloServer } from "apollo-server-express";
 import { schema } from "./src/schema";
 import { createContext } from "./src/context";
+import { PORT } from "./environment";
 
 async function startApolloServer() {
   const app = express();
@@ -24,11 +25,11 @@ async function startApolloServer() {
   server.applyMiddleware({ app });
 
   await new Promise<void>((resolve) => {
-    httpServer.listen({ port: 1337 });
+    httpServer.listen({ port: PORT });
     resolve();
   });
 
-  console.log(`Server is running on port localhost:1337${server.graphqlPath}`);
+  console.log(`Server is running on port ${PORT}`);
 }
 
 // Start server
