@@ -13,6 +13,7 @@ async function startApolloServer() {
   const app = express();
   const httpServer = http.createServer(app);
   const server = new ApolloServer({
+    introspection: true,
     schema: schema,
     context: createContext,
     plugins: [
