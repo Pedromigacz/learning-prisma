@@ -35,7 +35,7 @@ export const CreateFormFieldInput = inputObjectType({
   name: "CreateFormFieldInput",
   definition(t) {
     t.nonNull.string("label");
-    t.nonNull.int("sort_index");
+    t.nullable.int("sort_index");
   },
 });
 

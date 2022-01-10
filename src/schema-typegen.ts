@@ -16,7 +16,7 @@ declare global {
 export interface NexusGenInputs {
   CreateFormFieldInput: { // input type
     label: string; // String!
-    sort_index: number; // Int!
+    sort_index?: number | null; // Int
   }
   CreateFormInput: { // input type
     name: string; // String!

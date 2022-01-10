@@ -4,7 +4,7 @@
 
 input CreateFormFieldInput {
   label: String!
-  sort_index: Int!
+  sort_index: Int
 }
 
 input CreateFormInput {
