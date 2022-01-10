@@ -1,4 +1,4 @@
-import { inputObjectType, nullable } from "nexus";
+import { inputObjectType } from "nexus";
 
 // Form
 export const FormWhereUniqueInput = inputObjectType({
